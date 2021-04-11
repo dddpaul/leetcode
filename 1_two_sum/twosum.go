@@ -20,3 +20,29 @@ func (s BruteforceSolver) TwoSum(nums []int, target int) []int {
 	}
 	return []int{}
 }
+
+type HashSolver struct{}
+
+func (s HashSolver) TwoSum(nums []int, target int) []int {
+	m := make(map[int][]int)
+	var arr []int
+	var ok bool
+	for i, x := range nums {
+		if arr, ok = m[x]; !ok {
+			arr = make([]int, 0)
+		}
+		arr = append(arr, i)
+		m[x] = arr
+	}
+	for i, x := range nums {
+		y := target - x
+		if arr, ok = m[y]; ok {
+			for _, j := range arr {
+				if i != j {
+					return []int{i, j}
+				}
+			}
+		}
+	}
+	return []int{}
+}

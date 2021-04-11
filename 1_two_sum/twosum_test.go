@@ -37,6 +37,7 @@ var data = []TestCase{
 
 var solvers = []Solver{
 	BruteforceSolver{},
+	HashSolver{},
 }
 
 func TestExamples(t *testing.T) {
