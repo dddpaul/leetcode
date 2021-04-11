@@ -8,15 +8,14 @@ import (
 
 func TestCreateAndWalk(t *testing.T) {
 	arr := []int{1, 2, 3, 4, 5, 6}
-	node := New(arr)
-	walk := node.Walk()
-	assert.ElementsMatch(t, arr, walk)
+	node, _ := New(arr)
+	assert.ElementsMatch(t, arr, node.Walk())
 }
 
-// func TestExample1(t *testing.T) {
-// 	l1 := []int{2, 4, 3}
-// 	l2 := []int{5, 6, 4}
-// 	expected := []int{7, 0, 8}
+func TestExample1(t *testing.T) {
+	l1, _ := New([]int{2, 4, 3})
+	l2, _ := New([]int{5, 6, 4})
+	expected := []int{7, 0, 8}
 
-// 	assert.ElementsMatch(t, expected, AddTwoNumbers(l1, l2))
-// }
+	assert.ElementsMatch(t, expected, AddTwoNumbers(l1, l2).Walk())
+}
