@@ -46,9 +46,9 @@ func (l *ListNode) Walk() []int {
 	return arr
 }
 
-func (l1 *ListNode) Sum(l2 *ListNode) (int, int) {
-	fmt.Printf("%v, %v\n", l1.Val, l2.Val)
-	sum := l1.Val + l2.Val
+func Sum(v1 int, v2 int, overflow int) (int, int) {
+	fmt.Printf("%v, %v, %v\n", v1, v2, overflow)
+	sum := v1 + v2 + overflow
 	if sum >= 10 {
 		return sum - 10, 1
 	}
@@ -57,13 +57,20 @@ func (l1 *ListNode) Sum(l2 *ListNode) (int, int) {
 
 func (l1 *ListNode) SumAll(l2 *ListNode) *ListNode {
 	var root, node, prev *ListNode
-	var sum, overflow, prev_overflow int
+	var sum, overflow, prev_overflow, v1, v2 int
+	var node1_walked, node2_walked bool
 	node1 := l1
 	node2 := l2
 	for {
-		sum, overflow = node1.Sum(node2)
+		if !node1_walked {
+			v1 = node1.Val
+		}
+		if !node2_walked {
+			v2 = node2.Val
+		}
+		sum, overflow = Sum(v1, v2, prev_overflow)
 		node = &ListNode{
-			Val: sum + prev_overflow,
+			Val: sum,
 		}
 		if prev == nil {
 			root = node
@@ -71,12 +78,24 @@ func (l1 *ListNode) SumAll(l2 *ListNode) *ListNode {
 			prev.Next = node
 		}
 		if node1.Next == nil {
+			node1_walked = true
+			v1 = 0
+		}
+		if node2.Next == nil {
+			node2_walked = true
+			v2 = 0
+		}
+		if node1_walked && node2_walked && overflow == 0 {
 			break
 		}
 		prev = node
 		prev_overflow = overflow
-		node1 = node1.Next
-		node2 = node2.Next
+		if !node1_walked {
+			node1 = node1.Next
+		}
+		if !node2_walked {
+			node2 = node2.Next
+		}
 	}
 	return root
 }
