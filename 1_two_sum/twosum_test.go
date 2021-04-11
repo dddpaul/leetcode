@@ -6,34 +6,43 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestExample1(t *testing.T) {
-	nums := []int{2, 7, 11, 15}
-	target := 9
-	expected := []int{0, 1}
-
-	assert.ElementsMatch(t, expected, TwoSum(nums, target))
+type TestCase struct {
+	nums     []int
+	target   int
+	expected []int
 }
 
-func TestExample2(t *testing.T) {
-	nums := []int{3, 2, 4}
-	target := 6
-	expected := []int{1, 2}
-
-	assert.ElementsMatch(t, expected, TwoSum(nums, target))
+var data = []TestCase{
+	{
+		nums:     []int{2, 7, 11, 15},
+		target:   9,
+		expected: []int{0, 1},
+	},
+	{
+		nums:     []int{3, 2, 4},
+		target:   6,
+		expected: []int{1, 2},
+	},
+	{
+		nums:     []int{3, 3},
+		target:   6,
+		expected: []int{0, 1},
+	},
+	{
+		nums:     []int{3, 3},
+		target:   7,
+		expected: []int{},
+	},
 }
 
-func TestExample3(t *testing.T) {
-	nums := []int{3, 3}
-	target := 6
-	expected := []int{0, 1}
-
-	assert.ElementsMatch(t, expected, TwoSum(nums, target))
+var solvers = []Solver{
+	BruteforceSolver{},
 }
 
-func TestNotFound(t *testing.T) {
-	nums := []int{3, 3}
-	target := 7
-	expected := []int{}
-
-	assert.ElementsMatch(t, expected, TwoSum(nums, target))
+func TestExamples(t *testing.T) {
+	for _, s := range solvers {
+		for _, d := range data {
+			assert.ElementsMatch(t, d.expected, s.TwoSum(d.nums, d.target))
+		}
+	}
 }
