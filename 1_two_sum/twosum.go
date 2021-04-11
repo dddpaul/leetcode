@@ -11,12 +11,10 @@ type Solver interface {
 type BruteforceSolver struct{}
 
 func (s BruteforceSolver) TwoSum(nums []int, target int) []int {
-	for i, v1 := range nums {
-		for j, v2 := range nums {
-			if i != j {
-				if v1+v2 == target {
-					return []int{i, j}
-				}
+	for i := 0; i < len(nums); i++ {
+		for j := i + 1; j < len(nums); j++ {
+			if nums[i]+nums[j] == target {
+				return []int{i, j}
 			}
 		}
 	}
