@@ -13,6 +13,10 @@ type ListNode struct {
 	Next *ListNode
 }
 
+type Solver interface {
+	AddTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode
+}
+
 func New(nums []int) (*ListNode, error) {
 	var head, node, prev *ListNode
 	for _, v := range nums {
@@ -45,7 +49,9 @@ func (l *ListNode) Walk() []int {
 	return arr
 }
 
-func AddTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+type DirectSolver struct{}
+
+func (s DirectSolver) AddTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	var head, node, prev *ListNode
 	var sum, overflow, prev_overflow, v1, v2 int
 	var node1_walked, node2_walked bool

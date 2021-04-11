@@ -30,6 +30,10 @@ var data = []TestCase{
 	},
 }
 
+var solvers = []Solver{
+	DirectSolver{},
+}
+
 func TestCreateAndWalk(t *testing.T) {
 	arr := []int{1, 2, 3, 4, 5, 6}
 	node, _ := New(arr)
@@ -37,9 +41,11 @@ func TestCreateAndWalk(t *testing.T) {
 }
 
 func TestExamples(t *testing.T) {
-	for _, d := range data {
-		l1, _ := New(d.l1)
-		l2, _ := New(d.l2)
-		assert.ElementsMatch(t, d.expected, AddTwoNumbers(l1, l2).Walk())
+	for _, s := range solvers {
+		for _, d := range data {
+			l1, _ := New(d.l1)
+			l2, _ := New(d.l2)
+			assert.ElementsMatch(t, d.expected, s.AddTwoNumbers(l1, l2).Walk())
+		}
 	}
 }
