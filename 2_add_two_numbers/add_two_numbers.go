@@ -36,15 +36,26 @@ func New(nums []int) (*ListNode, error) {
 	return head, nil
 }
 
+func (l *ListNode) WalkChannel() <-chan *ListNode {
+	ch := make(chan *ListNode)
+	go func(ch chan *ListNode) {
+		defer close(ch)
+		node := l
+		for {
+			ch <- node
+			if node.Next == nil {
+				break
+			}
+			node = node.Next
+		}
+	}(ch)
+	return ch
+}
+
 func (l *ListNode) Walk() []int {
 	arr := make([]int, 0)
-	node := l
-	for {
+	for node := range l.WalkChannel() {
 		arr = append(arr, node.Val)
-		if node.Next == nil {
-			break
-		}
-		node = node.Next
 	}
 	return arr
 }
@@ -105,4 +116,10 @@ func (s DirectSolver) AddTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 		prev_overflow = overflow
 	}
 	return head
+}
+
+type ChannelSolver struct{}
+
+func (s ChannelSolver) AddTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+	return nil
 }
