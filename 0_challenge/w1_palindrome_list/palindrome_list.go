@@ -1,6 +1,8 @@
 package main
 
-import "errors"
+import (
+	"errors"
+)
 
 /**
  * https://leetcode.com/explore/challenge/card/april-leetcoding-challenge-2021/593/week-1-april-1st-april-7th/3693/
@@ -34,32 +36,50 @@ func New(nums []int) (*ListNode, error) {
 	return head, nil
 }
 
-func (l *ListNode) WalkChannel() <-chan *ListNode {
-	ch := make(chan *ListNode)
-	go func(ch chan *ListNode) {
-		defer close(ch)
-		node := l
-		for {
-			ch <- node
-			if node.Next == nil {
-				break
-			}
-			node = node.Next
-		}
-	}(ch)
-	return ch
-}
-
-func (l *ListNode) Walk() []int {
-	arr := make([]int, 0)
-	for node := range l.WalkChannel() {
-		arr = append(arr, node.Val)
-	}
-	return arr
-}
-
 type DirectSolver struct{}
 
 func (s DirectSolver) IsPalindrome(head *ListNode) bool {
-	return false
+
+	walk := func(l *ListNode) <-chan *ListNode {
+		ch := make(chan *ListNode)
+		go func(ch chan *ListNode) {
+			defer close(ch)
+			node := l
+			for {
+				ch <- node
+				if node.Next == nil {
+					break
+				}
+				node = node.Next
+			}
+		}(ch)
+		return ch
+	}
+
+	stack := make([]int, 0)
+	backward := false
+	count := 0
+
+	for node := range walk(head) {
+		if count == 0 {
+			stack = append(stack, node.Val)
+		} else {
+			prev := stack[len(stack)-1]
+			if node.Val != prev {
+				stack = append(stack, node.Val)
+				if len(stack) >= 3 {
+					prev_prev := stack[len(stack)-3]
+					if node.Val == prev_prev {
+						stack = stack[:len(stack)-3]
+						backward = true
+					}
+				}
+			} else if backward {
+				stack = stack[:len(stack)-1]
+			}
+		}
+		count = count + 1
+	}
+
+	return count == 1 || (count == 2 && len(stack) == 1) || len(stack) == 0
 }

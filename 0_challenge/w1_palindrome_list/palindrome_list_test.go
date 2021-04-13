@@ -12,24 +12,50 @@ type TestCase struct {
 }
 
 var data = []TestCase{
+	// {
+	// 	nums:     []int{1, 2, 3, 2, 1},
+	// 	expected: true,
+	// },
+	// {
+	// 	nums:     []int{1, 2, 2, 1},
+	// 	expected: true,
+	// },
+	// {
+	// 	nums:     []int{1, 2, 2, 2, 1},
+	// 	expected: true,
+	// },
+	// {
+	// 	nums:     []int{1, 2, 3, 3, 2, 1},
+	// 	expected: true,
+	// },
+	// {
+	// 	nums:     []int{1, 1},
+	// 	expected: true,
+	// },
+	// {
+	// 	nums:     []int{1},
+	// 	expected: true,
+	// },
+	// {
+	// 	nums:     []int{1, 2, 3, 2, 0},
+	// 	expected: false,
+	// },
+	// {
+	// 	nums:     []int{1, 2},
+	// 	expected: false,
+	// },
+	// {
+	// 	nums:     []int{1, 0, 0},
+	// 	expected: false,
+	// },
 	{
-		nums:     []int{1, 2, 2, 1},
-		expected: true,
-	},
-	{
-		nums:     []int{1, 2},
+		nums:     []int{1, 1, 2, 1},
 		expected: false,
 	},
 }
 
 var solvers = []Solver{
 	DirectSolver{},
-}
-
-func TestCreateAndWalk(t *testing.T) {
-	arr := []int{1, 2, 3, 4, 5, 6}
-	node, _ := New(arr)
-	assert.ElementsMatch(t, arr, node.Walk())
 }
 
 func TestExamples(t *testing.T) {
