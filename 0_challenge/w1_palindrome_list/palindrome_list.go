@@ -45,6 +45,9 @@ func (s DirectSolver) IsPalindrome(head *ListNode) bool {
 		go func(ch chan *ListNode) {
 			defer close(ch)
 			node := l
+			if node == nil {
+				return
+			}
 			for {
 				ch <- node
 				if node.Next == nil {
@@ -56,30 +59,52 @@ func (s DirectSolver) IsPalindrome(head *ListNode) bool {
 		return ch
 	}
 
-	stack := make([]int, 0)
-	backward := false
-	count := 0
-
-	for node := range walk(head) {
-		if count == 0 {
-			stack = append(stack, node.Val)
-		} else {
-			prev := stack[len(stack)-1]
-			if node.Val != prev {
-				stack = append(stack, node.Val)
-				if len(stack) >= 3 {
-					prev_prev := stack[len(stack)-3]
-					if node.Val == prev_prev {
-						stack = stack[:len(stack)-3]
-						backward = true
-					}
-				}
-			} else if backward {
-				stack = stack[:len(stack)-1]
-			}
+	reverse := func(head *ListNode) *ListNode {
+		var prev *ListNode
+		node := head
+		if node == nil {
+			return nil
 		}
-		count = count + 1
+		for {
+			next := node.Next
+			if prev == nil {
+				node.Next = nil
+			} else {
+				node.Next = prev
+			}
+			prev = node
+			if next == nil {
+				break
+			}
+			node = next
+		}
+		return prev
 	}
 
-	return count == 1 || (count == 2 && len(stack) == 1) || len(stack) == 0
+	length := 0
+	for range walk(head) {
+		length = length + 1
+	}
+	if length == 1 {
+		return true
+	}
+
+	half := head
+	for i := 0; i < length/2+length%2; i++ {
+		half = half.Next
+	}
+
+	n1 := head
+	n2 := reverse(half)
+
+	for {
+		if n1.Val != n2.Val {
+			return false
+		}
+		if n2.Next == nil {
+			return true
+		}
+		n1 = n1.Next
+		n2 = n2.Next
+	}
 }

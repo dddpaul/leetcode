@@ -12,18 +12,22 @@ type TestCase struct {
 }
 
 var data = []TestCase{
-	// {
-	// 	nums:     []int{1, 2, 3, 4, 5},
-	// 	expected: []int{5, 4, 3, 2, 1},
-	// },
-	// {
-	// 	nums:     []int{1, 2},
-	// 	expected: []int{2, 1},
-	// },
-	// {
-	// 	nums:     []int{1},
-	// 	expected: []int{1},
-	// },
+	{
+		nums:     []int{1, 2, 3, 4, 5},
+		expected: []int{5, 4, 3, 2, 1},
+	},
+	{
+		nums:     []int{1, 2},
+		expected: []int{2, 1},
+	},
+	{
+		nums:     []int{1, 1},
+		expected: []int{1, 1},
+	},
+	{
+		nums:     []int{1},
+		expected: []int{1},
+	},
 	{
 		nums:     []int{},
 		expected: []int{},
