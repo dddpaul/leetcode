@@ -32,10 +32,22 @@ var data = []TestCase{
 		n:        4,
 		expected: 3,
 	},
+	{
+		n:        5,
+		expected: 5,
+	},
+	{
+		n:        10,
+		expected: 55,
+	},
+	{
+		n:        20,
+		expected: 6765,
+	},
 }
 
 var solvers = []Solver{
-	DirectSolver{},
+	LinearSolver{},
 }
 
 func TestExamples(t *testing.T) {
