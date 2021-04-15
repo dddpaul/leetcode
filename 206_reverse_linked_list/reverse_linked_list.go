@@ -1,9 +1,5 @@
 package main
 
-import (
-	"errors"
-)
-
 /*
  * https://leetcode.com/problems/reverse-linked-list/
  */
@@ -20,9 +16,6 @@ type Solver interface {
 func New(nums []int) (*ListNode, error) {
 	var head, node, prev *ListNode
 	for _, v := range nums {
-		if v < 0 || v > 9 {
-			return nil, errors.New("Non digit")
-		}
 		node = &ListNode{
 			Val: v,
 		}
@@ -36,11 +29,14 @@ func New(nums []int) (*ListNode, error) {
 	return head, nil
 }
 
-func (l *ListNode) WalkChannel() <-chan *ListNode {
+func WalkChannel(l *ListNode) <-chan *ListNode {
 	ch := make(chan *ListNode)
 	go func(ch chan *ListNode) {
 		defer close(ch)
 		node := l
+		if node == nil {
+			return
+		}
 		for {
 			ch <- node
 			if node.Next == nil {
@@ -52,16 +48,34 @@ func (l *ListNode) WalkChannel() <-chan *ListNode {
 	return ch
 }
 
-func (l *ListNode) Walk() []int {
+func Walk(l *ListNode) []int {
 	arr := make([]int, 0)
-	for node := range l.WalkChannel() {
+	for node := range WalkChannel(l) {
 		arr = append(arr, node.Val)
 	}
 	return arr
 }
 
-type DirectSolver struct{}
+type MutableSolver struct{}
 
-func (s DirectSolver) ReverseList(head *ListNode) *ListNode {
-	return nil
+func (s MutableSolver) ReverseList(head *ListNode) *ListNode {
+	var prev *ListNode
+	node := head
+	if node == nil {
+		return nil
+	}
+	for {
+		next := node.Next
+		if prev == nil {
+			node.Next = nil
+		} else {
+			node.Next = prev
+		}
+		prev = node
+		if next == nil {
+			break
+		}
+		node = next
+	}
+	return prev
 }
