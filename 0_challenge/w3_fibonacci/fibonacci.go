@@ -33,3 +33,18 @@ func (s LinearSolver) Fib(n int) int {
 	}
 	return fib1
 }
+
+type RecursiveLinearSolver struct{}
+
+func (s RecursiveLinearSolver) Fib(n int) int {
+	var fib func(int) int
+	fib0, fib1 := 0, 1
+	fib = func(n int) int {
+		if n == 0 || n == 1 {
+			return n
+		}
+		fib0, fib1 = fib1, fib0+fib(n-1)
+		return fib1
+	}
+	return fib(n)
+}

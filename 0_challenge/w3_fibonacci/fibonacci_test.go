@@ -48,6 +48,7 @@ var data = []TestCase{
 
 var solvers = []Solver{
 	LinearSolver{},
+	RecursiveLinearSolver{},
 }
 
 func TestExamples(t *testing.T) {
