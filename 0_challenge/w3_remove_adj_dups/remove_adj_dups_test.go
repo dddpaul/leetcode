@@ -31,7 +31,7 @@ var data = []TestCase{
 }
 
 var solvers = []Solver{
-	DirectSolver{},
+	RewindSolver{},
 }
 
 func TestExamples(t *testing.T) {

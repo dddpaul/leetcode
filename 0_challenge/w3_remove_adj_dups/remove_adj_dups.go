@@ -8,8 +8,33 @@ type Solver interface {
 	RemoveDuplicates(s string, k int) string
 }
 
-type DirectSolver struct{}
+type RewindSolver struct{}
 
-func (ds DirectSolver) RemoveDuplicates(s string, k int) string {
-	return ""
+func (ds RewindSolver) RemoveDuplicates(s string, k int) string {
+	dups := 1
+	i := 0
+	var prev byte
+	for {
+		ch := s[i]
+		if ch == prev {
+			dups = dups + 1
+		} else {
+			dups = 1
+		}
+		if dups == k {
+			// fmt.Printf("i = %d, dups = %d, s = %s", i, dups, s)
+			s = s[:i-k+1] + s[i+1:]
+			dups = 1
+			i = 0
+			prev = 0
+			// fmt.Printf(", remove = %s, s = %s\n", string(ch), s)
+		} else {
+			prev = ch
+			i = i + 1
+			if i == len(s) {
+				break
+			}
+		}
+	}
+	return s
 }
