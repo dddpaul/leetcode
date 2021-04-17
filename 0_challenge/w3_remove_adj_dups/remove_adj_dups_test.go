@@ -28,6 +28,21 @@ var data = []TestCase{
 		k:        2,
 		expected: "ps",
 	},
+	{
+		s:        "",
+		k:        3,
+		expected: "",
+	},
+	{
+		s:        "a",
+		k:        1,
+		expected: "",
+	},
+	{
+		s:        "a",
+		k:        2,
+		expected: "a",
+	},
 }
 
 var solvers = []Solver{

@@ -14,6 +14,9 @@ func (ds RewindSolver) RemoveDuplicates(s string, k int) string {
 	dups := 1
 	i := 0
 	var prev byte
+	if len(s) == 0 || k == 1 {
+		return ""
+	}
 	for {
 		ch := s[i]
 		if ch == prev {
@@ -34,6 +37,9 @@ func (ds RewindSolver) RemoveDuplicates(s string, k int) string {
 			if i == len(s) {
 				break
 			}
+		}
+		if len(s) == 0 {
+			break
 		}
 	}
 	return s
