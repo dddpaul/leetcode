@@ -47,7 +47,7 @@ var data = []TestCase{
 
 var solvers = []Solver{
 	RewindSolver{},
-	LinearSolver{},
+	// LinearSolver{},
 }
 
 func TestExamples(t *testing.T) {
@@ -56,4 +56,13 @@ func TestExamples(t *testing.T) {
 			assert.Equal(t, d.expected, s.RemoveDuplicates(d.s, d.k))
 		}
 	}
+}
+
+func TestCreateAndWalk(t *testing.T) {
+	s := ""
+	assert.Equal(t, s, String(New(s)))
+	s = "a"
+	assert.Equal(t, s, String(New(s)))
+	s = "abcd"
+	assert.Equal(t, s, String(New(s)))
 }

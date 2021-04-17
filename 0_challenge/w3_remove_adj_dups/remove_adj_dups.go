@@ -53,6 +53,48 @@ func (ds RewindSolver) RemoveDuplicates(s string, k int) string {
 
 type LinearSolver struct{}
 
+type ListNode struct {
+	Val  byte
+	Next *ListNode
+	Prev *ListNode
+}
+
+func New(s string) *ListNode {
+	var head, node, prev *ListNode
+	for _, v := range s {
+		node = &ListNode{
+			Val: byte(v),
+		}
+		if prev == nil {
+			head = node
+		} else {
+			prev.Next = node
+			node.Prev = prev
+		}
+		prev = node
+	}
+	return head
+}
+
+func Walk(l *ListNode) <-chan *ListNode {
+	ch := make(chan *ListNode)
+	go func(ch chan *ListNode) {
+		defer close(ch)
+		for node := l; node != nil; node = node.Next {
+			ch <- node
+		}
+	}(ch)
+	return ch
+}
+
+func String(l *ListNode) string {
+	s := make([]byte, 0)
+	for node := range Walk(l) {
+		s = append(s, node.Val)
+	}
+	return string(s)
+}
+
 func (ls LinearSolver) RemoveDuplicates(s string, k int) string {
 	return ""
 }
