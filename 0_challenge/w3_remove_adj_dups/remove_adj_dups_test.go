@@ -47,7 +47,7 @@ var data = []TestCase{
 
 var solvers = []Solver{
 	RewindSolver{},
-	// LinearSolver{},
+	LinearSolver{},
 }
 
 func TestExamples(t *testing.T) {
@@ -70,4 +70,7 @@ func TestCreateWalkSeek(t *testing.T) {
 	assert.Equal(t, s, String(New(s), true))
 	assert.Equal(t, s[1:], String(Seek(New(s), 1), true))
 	assert.Equal(t, "dcba", String(Seek(New(s), len(s)-1), false))
+	last := Seek(New(s), len(s)-1)
+	assert.Equal(t, "d", string(last.Val))
+	assert.Equal(t, "cba", String(Seek(last, -1), false))
 }
