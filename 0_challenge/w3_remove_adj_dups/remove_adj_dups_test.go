@@ -46,7 +46,7 @@ var data = []TestCase{
 }
 
 var solvers = []Solver{
-	// RewindSolver{},
+	RewindSolver{},
 	LinearSolver{},
 }
 
