@@ -58,11 +58,13 @@ func TestExamples(t *testing.T) {
 	}
 }
 
-func TestCreateAndWalk(t *testing.T) {
+func TestCreateWalkSeek(t *testing.T) {
 	s := ""
 	assert.Equal(t, s, String(New(s)))
 	s = "a"
 	assert.Equal(t, s, String(New(s)))
+	assert.Equal(t, s[1:], String(Seek(New(s), 1)))
 	s = "abcd"
 	assert.Equal(t, s, String(New(s)))
+	assert.Equal(t, s[1:], String(Seek(New(s), 1)))
 }

@@ -95,6 +95,31 @@ func String(l *ListNode) string {
 	return string(s)
 }
 
+func Seek(l *ListNode, offset int) *ListNode {
+	i := 0
+	node := l
+	for {
+		if i < offset {
+			node = node.Next
+			i = i + 1
+		} else if i > offset {
+			node = node.Prev
+			i = i - 1
+		} else {
+			return node
+		}
+	}
+}
+
 func (ls LinearSolver) RemoveDuplicates(s string, k int) string {
+	dups := 1
+	var prev *ListNode
+	for node := range Walk(New(s)) {
+		if node.Val == prev.Val {
+			dups = dups + 1
+		} else {
+			dups = 1
+		}
+	}
 	return ""
 }
