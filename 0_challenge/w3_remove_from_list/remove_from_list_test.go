@@ -36,7 +36,8 @@ var data = []TestCase{
 }
 
 var solvers = []Solver{
-	DirectSolver{},
+	TwoPassSolver{},
+	OnePassSolver{},
 }
 
 func TestExamples(t *testing.T) {
