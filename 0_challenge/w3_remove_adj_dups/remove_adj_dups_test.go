@@ -96,19 +96,35 @@ func randSeq(n int) string {
 	return string(b)
 }
 
-func benchmark(s Solver, b *testing.B) {
+func benchmark(s Solver, k int, b *testing.B) {
 	d := TestCase{
 		s:        randSeq(1_000_000),
-		k:        100,
+		k:        k,
 		expected: "",
 	}
 	s.RemoveDuplicates(d.s, d.k)
 }
 
-func BenchmarkArray(b *testing.B) {
-	benchmark(ArrayRewindSolver{}, b)
+func BenchmarkArray1(b *testing.B) {
+	benchmark(ArrayRewindSolver{}, 1, b)
 }
 
-func BenchmarkList(b *testing.B) {
-	benchmark(ListRewindSolver{}, b)
+func BenchmarkArray10(b *testing.B) {
+	benchmark(ArrayRewindSolver{}, 10, b)
+}
+
+func BenchmarkArray100(b *testing.B) {
+	benchmark(ArrayRewindSolver{}, 100, b)
+}
+
+func BenchmarkList1(b *testing.B) {
+	benchmark(ListRewindSolver{}, 1, b)
+}
+
+func BenchmarkList10(b *testing.B) {
+	benchmark(ListRewindSolver{}, 10, b)
+}
+
+func BenchmarkList100(b *testing.B) {
+	benchmark(ListRewindSolver{}, 100, b)
 }
