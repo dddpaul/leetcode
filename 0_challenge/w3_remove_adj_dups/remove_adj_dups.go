@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 /**
  * https://leetcode.com/explore/challenge/card/april-leetcoding-challenge-2021/595/week-3-april-15th-april-21st/3710/
  */
@@ -123,14 +121,83 @@ func Seek(l *ListNode, offset int) *ListNode {
 }
 
 func (ls LinearSolver) RemoveDuplicates(s string, k int) string {
+
 	if len(s) == 0 || k == 1 {
 		return ""
 	}
+
+	type ListNode struct {
+		Val  byte
+		Next *ListNode
+		Prev *ListNode
+	}
+
+	new := func(s string) *ListNode {
+		var head, node, prev *ListNode
+		for _, v := range s {
+			node = &ListNode{
+				Val: byte(v),
+			}
+			if prev == nil {
+				head = node
+			} else {
+				prev.Next = node
+				node.Prev = prev
+			}
+			prev = node
+		}
+		return head
+	}
+
+	seek := func(l *ListNode, offset int) *ListNode {
+		i := 0
+		node := l
+		for {
+			if node == nil {
+				return nil
+			}
+			if i < offset {
+				node = node.Next
+				i = i + 1
+			} else if i > offset {
+				node = node.Prev
+				i = i - 1
+			} else {
+				return node
+			}
+		}
+	}
+
+	walk := func(l *ListNode, forward bool) <-chan *ListNode {
+		ch := make(chan *ListNode)
+		go func(ch chan *ListNode) {
+			defer close(ch)
+			if forward {
+				for node := l; node != nil; node = node.Next {
+					ch <- node
+				}
+			} else {
+				for node := l; node != nil; node = node.Prev {
+					ch <- node
+				}
+			}
+		}(ch)
+		return ch
+	}
+
+	toString := func(l *ListNode, forward bool) string {
+		s := make([]byte, 0)
+		for node := range walk(l, forward) {
+			s = append(s, node.Val)
+		}
+		return string(s)
+	}
+
 	dups := 1
-	l := New(s)
+	l := new(s)
 	node := l
 	var prev *ListNode
-	n := 0
+
 	for {
 		if prev != nil {
 			if node.Val == prev.Val {
@@ -141,8 +208,8 @@ func (ls LinearSolver) RemoveDuplicates(s string, k int) string {
 		}
 		prev = node
 		if dups == k {
-			fmt.Printf("n = %d, dups = %d, s = %s", n, dups, String(l, true))
-			prev = Seek(node, -k)
+			// fmt.Printf("dups = %d, s = %s", dups, String(l, true))
+			prev = seek(node, -k)
 			next := node.Next
 			if prev != nil {
 				prev.Next = next
@@ -152,17 +219,13 @@ func (ls LinearSolver) RemoveDuplicates(s string, k int) string {
 			}
 			next.Prev = prev
 			dups = 1
-			fmt.Printf(", remove = %s, s = %s", string(node.Val), String(l, true))
-			node = Seek(prev, -k+2)
+			// fmt.Printf(", remove = %s, s = %s", string(node.Val), String(l, true))
+			node = seek(prev, -k)
 			if node == nil {
 				node = l
 				prev = nil
 			}
-			n = n + 1
-			if n == 10 {
-				break
-			}
-			fmt.Printf(", seek = %v, prev = %v\n", node, prev)
+			// fmt.Printf(", seek = %v, prev = %v\n", node, prev)
 		}
 		if node.Next == nil {
 			break
@@ -171,5 +234,5 @@ func (ls LinearSolver) RemoveDuplicates(s string, k int) string {
 			node = node.Next
 		}
 	}
-	return String(l, true)
+	return toString(l, true)
 }
