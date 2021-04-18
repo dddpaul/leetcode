@@ -106,3 +106,24 @@ func (s OnePassSolver) RemoveNthFromEnd(head *ListNode, n int) *ListNode {
 	}
 	return head
 }
+
+type RecursiveSolver struct{}
+
+func (s RecursiveSolver) RemoveNthFromEnd(head *ListNode, n int) *ListNode {
+	tail := 0
+	var rec func(node *ListNode) *ListNode
+	rec = func(node *ListNode) *ListNode {
+		if node != nil {
+			node.Next = rec(node.Next)
+		}
+		if node == nil || tail > 0 {
+			tail = tail + 1
+		}
+		if tail == n+1 {
+			return node.Next
+		} else {
+			return node
+		}
+	}
+	return rec(head)
+}
