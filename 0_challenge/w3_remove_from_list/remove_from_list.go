@@ -68,17 +68,17 @@ func (s DirectSolver) RemoveNthFromEnd(head *ListNode, n int) *ListNode {
 		length = length + 1
 	}
 
-	if length == 1 && n == 1 {
-		return nil
-	}
-
 	node := head
 	var prev *ListNode
 	i := 0
 
 	for {
-		if prev != nil && i == length-n {
-			prev.Next = node.Next
+		if i == length-n {
+			if prev != nil {
+				prev.Next = node.Next
+			} else {
+				head = node.Next
+			}
 		}
 		if node.Next == nil {
 			break

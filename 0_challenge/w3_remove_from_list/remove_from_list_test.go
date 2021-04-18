@@ -24,6 +24,11 @@ var data = []TestCase{
 		expected: []int{1},
 	},
 	{
+		nums:     []int{1, 2},
+		n:        2,
+		expected: []int{2},
+	},
+	{
 		nums:     []int{1},
 		n:        1,
 		expected: []int{},
