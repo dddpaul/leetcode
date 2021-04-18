@@ -1,6 +1,7 @@
 package main
 
 import (
+	"math/rand"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -56,8 +57,8 @@ var data = []TestCase{
 }
 
 var solvers = []Solver{
-	RewindSolver{},
-	LinearSolver{},
+	ArrayRewindSolver{},
+	ListRewindSolver{},
 }
 
 func TestExamples(t *testing.T) {
@@ -83,4 +84,31 @@ func TestCreateWalkSeek(t *testing.T) {
 	last := Seek(New(s), len(s)-1)
 	assert.Equal(t, "d", string(last.Val))
 	assert.Equal(t, "cba", String(Seek(last, -1), false))
+}
+
+var letters = []rune("abcdefghijklmnopqrstuvwxyz")
+
+func randSeq(n int) string {
+	b := make([]rune, n)
+	for i := range b {
+		b[i] = letters[rand.Intn(len(letters))]
+	}
+	return string(b)
+}
+
+func benchmark(s Solver, b *testing.B) {
+	d := TestCase{
+		s:        randSeq(1_000_000),
+		k:        100,
+		expected: "",
+	}
+	s.RemoveDuplicates(d.s, d.k)
+}
+
+func BenchmarkArray(b *testing.B) {
+	benchmark(ArrayRewindSolver{}, b)
+}
+
+func BenchmarkList(b *testing.B) {
+	benchmark(ListRewindSolver{}, b)
 }
