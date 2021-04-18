@@ -34,6 +34,11 @@ var data = []TestCase{
 		expected: "vqm",
 	},
 	{
+		s:        "yfttttfbbbbnnnnffbgffffgbbbbgssssgthyyyy",
+		k:        4,
+		expected: "ybth",
+	},
+	{
 		s:        "",
 		k:        3,
 		expected: "",

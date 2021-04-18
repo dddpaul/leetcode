@@ -217,7 +217,9 @@ func (ls LinearSolver) RemoveDuplicates(s string, k int) string {
 				l = next
 				node = l
 			}
-			next.Prev = prev
+			if next != nil {
+				next.Prev = prev
+			}
 			dups = 1
 			// fmt.Printf(", remove = %s, s = %s", string(node.Val), String(l, true))
 			node = seek(prev, -k)
@@ -227,7 +229,7 @@ func (ls LinearSolver) RemoveDuplicates(s string, k int) string {
 			}
 			// fmt.Printf(", seek = %v, prev = %v\n", node, prev)
 		}
-		if node.Next == nil {
+		if node == nil || node.Next == nil {
 			break
 		}
 		if prev != nil {
