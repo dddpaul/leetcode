@@ -102,7 +102,9 @@ func benchmark(s Solver, k int, b *testing.B) {
 		k:        k,
 		expected: "",
 	}
-	s.RemoveDuplicates(d.s, d.k)
+	for i := 0; i < b.N; i++ {
+		s.RemoveDuplicates(d.s, d.k)
+	}
 }
 
 func BenchmarkArray1(b *testing.B) {
