@@ -93,41 +93,16 @@ func (s TwoPassSolver) RemoveNthFromEnd(head *ListNode, n int) *ListNode {
 type OnePassSolver struct{}
 
 func (s OnePassSolver) RemoveNthFromEnd(head *ListNode, n int) *ListNode {
-
-	walk := func(l *ListNode) <-chan *ListNode {
-		ch := make(chan *ListNode)
-		go func(ch chan *ListNode) {
-			defer close(ch)
-			for node := l; node != nil; node = node.Next {
-				ch <- node
-			}
-		}(ch)
-		return ch
-	}
-
-	length := 0
-	for range walk(head) {
-		length = length + 1
-	}
-
-	node := head
-	var prev *ListNode
+	m := make(map[int]*ListNode)
 	i := 0
-
-	for {
-		if i == length-n {
-			if prev != nil {
-				prev.Next = node.Next
-			} else {
-				head = node.Next
-			}
-		}
-		if node.Next == nil {
-			break
-		}
-		prev = node
-		node = node.Next
+	for node := head; node != nil; node = node.Next {
+		m[i] = node
 		i = i + 1
+	}
+	if i == n {
+		head = head.Next
+	} else {
+		m[i-n-1].Next = m[i-n+1]
 	}
 	return head
 }
