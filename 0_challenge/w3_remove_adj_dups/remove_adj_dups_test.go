@@ -23,26 +23,26 @@ var data = []TestCase{
 		k:        3,
 		expected: "aa",
 	},
-	// {
-	// 	s:        "pbbcggttciiippooaais",
-	// 	k:        2,
-	// 	expected: "ps",
-	// },
-	// {
-	// 	s:        "",
-	// 	k:        3,
-	// 	expected: "",
-	// },
-	// {
-	// 	s:        "a",
-	// 	k:        1,
-	// 	expected: "",
-	// },
-	// {
-	// 	s:        "a",
-	// 	k:        2,
-	// 	expected: "a",
-	// },
+	{
+		s:        "pbbcggttciiippooaais",
+		k:        2,
+		expected: "ps",
+	},
+	{
+		s:        "",
+		k:        3,
+		expected: "",
+	},
+	{
+		s:        "a",
+		k:        1,
+		expected: "",
+	},
+	{
+		s:        "a",
+		k:        2,
+		expected: "a",
+	},
 }
 
 var solvers = []Solver{

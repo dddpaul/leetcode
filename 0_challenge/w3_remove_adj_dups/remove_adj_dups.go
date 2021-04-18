@@ -1,8 +1,6 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 /**
  * https://leetcode.com/explore/challenge/card/april-leetcoding-challenge-2021/595/week-3-april-15th-april-21st/3710/
@@ -109,16 +107,13 @@ func Seek(l *ListNode, offset int) *ListNode {
 	i := 0
 	node := l
 	for {
+		if node == nil {
+			return nil
+		}
 		if i < offset {
-			if node.Next == nil {
-				return node
-			}
 			node = node.Next
 			i = i + 1
 		} else if i > offset {
-			if node.Prev == nil {
-				return node
-			}
 			node = node.Prev
 			i = i - 1
 		} else {
@@ -128,10 +123,14 @@ func Seek(l *ListNode, offset int) *ListNode {
 }
 
 func (ls LinearSolver) RemoveDuplicates(s string, k int) string {
+	if len(s) == 0 || k == 1 {
+		return ""
+	}
 	dups := 1
 	l := New(s)
-	var prev *ListNode
 	node := l
+	var prev *ListNode
+	n := 0
 	for {
 		if prev != nil {
 			if node.Val == prev.Val {
@@ -142,22 +141,35 @@ func (ls LinearSolver) RemoveDuplicates(s string, k int) string {
 		}
 		prev = node
 		if dups == k {
-			fmt.Printf("dups = %d, s = %s", dups, String(l, true))
+			fmt.Printf("n = %d, dups = %d, s = %s", n, dups, String(l, true))
 			prev = Seek(node, -k)
 			next := node.Next
-			prev.Next = next
+			if prev != nil {
+				prev.Next = next
+			} else {
+				l = next
+				node = l
+			}
 			next.Prev = prev
 			dups = 1
-			fmt.Printf(", remove = %s, s = %s\n", string(node.Val), String(l, true))
-			node = Seek(prev, -k)
-			print(string(node.Val))
-			prev = nil
-			continue
+			fmt.Printf(", remove = %s, s = %s", string(node.Val), String(l, true))
+			node = Seek(prev, -k+2)
+			if node == nil {
+				node = l
+				prev = nil
+			}
+			n = n + 1
+			if n == 10 {
+				break
+			}
+			fmt.Printf(", seek = %v, prev = %v\n", node, prev)
 		}
 		if node.Next == nil {
 			break
 		}
-		node = node.Next
+		if prev != nil {
+			node = node.Next
+		}
 	}
 	return String(l, true)
 }
