@@ -8,10 +8,10 @@ type Solver interface {
 	RemoveDuplicates(s string, k int) string
 }
 
-type RewindSolver struct{}
+type ArrayRewindSolver struct{}
 
 // n^2 complexity because of array memmove
-func (ds RewindSolver) RemoveDuplicates(s string, k int) string {
+func (ds ArrayRewindSolver) RemoveDuplicates(s string, k int) string {
 	dups := 1
 	i := 0
 	var prev byte
@@ -51,7 +51,7 @@ func (ds RewindSolver) RemoveDuplicates(s string, k int) string {
 	return s
 }
 
-type LinearSolver struct{}
+type ListRewindSolver struct{}
 
 type ListNode struct {
 	Val  byte
@@ -120,7 +120,7 @@ func Seek(l *ListNode, offset int) *ListNode {
 	}
 }
 
-func (ls LinearSolver) RemoveDuplicates(s string, k int) string {
+func (ls ListRewindSolver) RemoveDuplicates(s string, k int) string {
 
 	if len(s) == 0 || k == 1 {
 		return ""
