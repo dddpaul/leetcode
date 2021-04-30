@@ -18,20 +18,18 @@ func (ds DirectSolver) LengthOfLongestSubstring(s string) int {
 		return 0
 	}
 
-	m := make(map[string]int)
-	for _, r := range s {
-		m[string(r)] = 1
-	}
+	exists := struct{}{}
+	m := make(map[string]interface{})
 
 	i, j, l := 0, 0, 0
 	for {
 		i = j
 		for {
 			ch := s[i]
-			if m[string(ch)] == 1 {
-				m[string(ch)] = 0
-			} else {
+			if _, ok := m[string(ch)]; ok {
 				break
+			} else {
+				m[string(ch)] = exists
 			}
 			i = i + 1
 			if i == len(s) {
@@ -47,7 +45,7 @@ func (ds DirectSolver) LengthOfLongestSubstring(s string) int {
 			break
 		}
 		for k := range m {
-			m[k] = 1
+			delete(m, k)
 		}
 	}
 
