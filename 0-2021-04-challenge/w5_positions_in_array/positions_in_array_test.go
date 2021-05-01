@@ -37,6 +37,7 @@ var data = []TestCase{
 
 var solvers = []Solver{
 	DirectSolver{},
+	BisectSolver{},
 }
 
 func TestExamples(t *testing.T) {

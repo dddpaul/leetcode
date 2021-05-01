@@ -28,3 +28,10 @@ func (ds DirectSolver) SearchRange(nums []int, target int) []int {
 
 	return arr
 }
+
+type BisectSolver struct{}
+
+func (bs BisectSolver) SearchRange(nums []int, target int) []int {
+	arr := []int{-1, -1}
+	return arr
+}
