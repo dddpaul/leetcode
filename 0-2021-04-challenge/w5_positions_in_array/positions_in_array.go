@@ -11,5 +11,19 @@ type Solver interface {
 type DirectSolver struct{}
 
 func (ds DirectSolver) SearchRange(nums []int, target int) []int {
-	return nil
+	arr := []int{-1, -1}
+
+	found1 := false
+	for i := 0; i < len(nums); i = i + 1 {
+		if nums[i] == target {
+			if !found1 {
+				arr[0] = i
+				found1 = true
+			} else {
+				arr[1] = i
+			}
+		}
+	}
+
+	return arr
 }
