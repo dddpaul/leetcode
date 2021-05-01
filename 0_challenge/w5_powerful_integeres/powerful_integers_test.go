@@ -24,6 +24,12 @@ var data = []TestCase{
 		bound:    15,
 		expected: []int{2, 4, 6, 8, 10, 14},
 	},
+	{
+		x:        2,
+		y:        1,
+		bound:    10,
+		expected: []int{9, 2, 3, 5},
+	},
 }
 
 var solvers = []Solver{
