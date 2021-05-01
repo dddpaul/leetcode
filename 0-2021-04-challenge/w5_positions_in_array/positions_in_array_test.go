@@ -28,6 +28,11 @@ var data = []TestCase{
 		target:   0,
 		expected: []int{-1, -1},
 	},
+	{
+		nums:     []int{1},
+		target:   1,
+		expected: []int{0, 0},
+	},
 }
 
 var solvers = []Solver{

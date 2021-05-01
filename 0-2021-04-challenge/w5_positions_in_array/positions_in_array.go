@@ -18,6 +18,7 @@ func (ds DirectSolver) SearchRange(nums []int, target int) []int {
 		if nums[i] == target {
 			if !found1 {
 				arr[0] = i
+				arr[1] = i
 				found1 = true
 			} else {
 				arr[1] = i
