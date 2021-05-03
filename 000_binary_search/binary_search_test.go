@@ -14,21 +14,6 @@ type TestCase struct {
 
 var data = []TestCase{
 	{
-		nums:     []int{1, 1, 1, 1, 2, 2, 4, 4, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9, 10, 11, 12},
-		target:   12,
-		expected: 22,
-	},
-	{
-		nums:     []int{5, 7, 7, 8, 8, 10},
-		target:   8,
-		expected: 3,
-	},
-	{
-		nums:     []int{5, 7, 7, 8, 8, 10},
-		target:   10,
-		expected: 5,
-	},
-	{
 		nums:     []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
 		target:   1,
 		expected: 1,
@@ -37,11 +22,6 @@ var data = []TestCase{
 		nums:     []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
 		target:   8,
 		expected: 8,
-	},
-	{
-		nums:     []int{5, 7, 7, 8, 8, 10},
-		target:   6,
-		expected: -1,
 	},
 	{
 		nums:     []int{},

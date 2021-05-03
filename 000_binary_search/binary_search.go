@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math"
 )
 
 /**
@@ -19,26 +18,23 @@ func (ds DirectSolver) Search(nums []int, target int) int {
 	if len(nums) == 0 || (nums[0] > target && nums[len(nums)-1] < target) {
 		return -1
 	}
-	step := len(nums) / 2
-	count := 0
-	limit := int(math.Ceil(math.Log2(float64(len(nums))))) + 1
-	var search func(int) int
-	search = func(i int) int {
-		step = step / 2
-		if step == 0 {
-			step = 1
+	i := 0
+	var search func(int, int) int
+	search = func(l int, r int) int {
+		i = l + (r-l)/2
+		fmt.Printf("i = %d, l = %d, r = %d\n", i, l, r)
+		if nums[i] == target {
+			return i
 		}
-		fmt.Printf("count = %d, i = %d, step = %d, target = %d\n", count, i, step, target)
-		if (i < 0 || i > len(nums)-1) || count > limit {
+		if l >= r {
 			return -1
 		}
-		count = count + 1
 		if nums[i] > target {
-			return search(i - step)
+			return search(l, i-1)
 		} else if nums[i] < target {
-			return search(i + step)
+			return search(i+1, r)
 		}
 		return i
 	}
-	return search(step)
+	return search(0, len(nums)-1)
 }
