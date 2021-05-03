@@ -68,6 +68,12 @@ var data = []TestCase{
 		expected:        []int{-1, -1},
 		bisect_expected: -1,
 	},
+	{
+		nums:            []int{1, 5},
+		target:          4,
+		expected:        []int{-1, -1},
+		bisect_expected: -1,
+	},
 }
 
 var solvers = []Solver{
