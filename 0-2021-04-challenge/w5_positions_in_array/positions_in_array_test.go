@@ -15,6 +15,12 @@ type TestCase struct {
 
 var data = []TestCase{
 	{
+		nums:            []int{1, 1, 1, 1, 2, 2, 4, 4, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9, 10, 11, 12},
+		target:          12,
+		expected:        []int{22, 22},
+		bisect_expected: 22,
+	},
+	{
 		nums:            []int{5, 7, 7, 8, 8, 10},
 		target:          8,
 		expected:        []int{3, 4},

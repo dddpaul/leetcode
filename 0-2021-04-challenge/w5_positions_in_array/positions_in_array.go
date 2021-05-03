@@ -37,12 +37,12 @@ func (ds DirectSolver) SearchRange(nums []int, target int) []int {
 type BisectSolver struct{}
 
 func (bs BisectSolver) SearchRange1(nums []int, target int) int {
-	if len(nums) == 0 || nums[0] > target || nums[len(nums)-1] < target {
+	if len(nums) == 0 || (nums[0] > target && nums[len(nums)-1] < target) {
 		return -1
 	}
 	step := len(nums) / 2
 	count := 0
-	limit := int(math.Floor(math.Log2(float64(len(nums)))))
+	limit := int(math.Ceil(math.Log2(float64(len(nums))))) + 1
 	var search func(int) int
 	search = func(i int) int {
 		step = step / 2
@@ -66,12 +66,12 @@ func (bs BisectSolver) SearchRange1(nums []int, target int) int {
 
 func (bs BisectSolver) SearchRange(nums []int, target int) []int {
 	searchRange1 := func(nums []int, target int) int {
-		if len(nums) == 0 || nums[0] > target || nums[len(nums)-1] < target {
+		if len(nums) == 0 || (nums[0] > target && nums[len(nums)-1] < target) {
 			return -1
 		}
 		step := len(nums) / 2
 		count := 0
-		limit := int(math.Floor(math.Log2(float64(len(nums)))))
+		limit := int(math.Ceil(math.Log2(float64(len(nums))))) + 1
 		var search func(int) int
 		search = func(i int) int {
 			step = step / 2
