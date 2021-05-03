@@ -56,6 +56,18 @@ var data = []TestCase{
 		expected:        []int{0, 0},
 		bisect_expected: 0,
 	},
+	{
+		nums:            []int{1, 3},
+		target:          1,
+		expected:        []int{0, 0},
+		bisect_expected: 0,
+	},
+	{
+		nums:            []int{2, 2},
+		target:          3,
+		expected:        []int{-1, -1},
+		bisect_expected: -1,
+	},
 }
 
 var solvers = []Solver{
@@ -63,13 +75,13 @@ var solvers = []Solver{
 	BisectSolver{},
 }
 
-// func TestExamples(t *testing.T) {
-// 	for _, s := range solvers {
-// 		for _, d := range data {
-// 			assert.ElementsMatch(t, d.expected, s.SearchRange(d.nums, d.target))
-// 		}
-// 	}
-// }
+func TestExamples(t *testing.T) {
+	for _, s := range solvers {
+		for _, d := range data {
+			assert.ElementsMatch(t, d.expected, s.SearchRange(d.nums, d.target))
+		}
+	}
+}
 
 func TestBisect(t *testing.T) {
 	bs := BisectSolver{}
