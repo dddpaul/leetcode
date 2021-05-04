@@ -1,9 +1,5 @@
 package main
 
-import (
-	"fmt"
-)
-
 /**
  * https://leetcode.com/explore/learn/card/binary-search/138/background/1038/
  */
@@ -12,9 +8,9 @@ type Solver interface {
 	Search(nums []int, target int) int
 }
 
-type DirectSolver struct{}
+type RecursiveSolver struct{}
 
-func (ds DirectSolver) Search(nums []int, target int) int {
+func (rs RecursiveSolver) Search(nums []int, target int) int {
 	if len(nums) == 0 || (nums[0] > target && nums[len(nums)-1] < target) {
 		return -1
 	}
@@ -22,7 +18,6 @@ func (ds DirectSolver) Search(nums []int, target int) int {
 	var search func(int, int) int
 	search = func(l int, r int) int {
 		i = l + (r-l)/2
-		fmt.Printf("i = %d, l = %d, r = %d\n", i, l, r)
 		if l > r {
 			return -1
 		}
@@ -34,4 +29,26 @@ func (ds DirectSolver) Search(nums []int, target int) int {
 		return i
 	}
 	return search(0, len(nums)-1)
+}
+
+type DirectSolver struct{}
+
+func (ds DirectSolver) Search(nums []int, target int) int {
+	if len(nums) == 0 || (nums[0] > target && nums[len(nums)-1] < target) {
+		return -1
+	}
+	l, r := 0, len(nums)-1
+	for {
+		i := l + (r-l)/2
+		if nums[i] > target {
+			r = i - 1
+		} else if nums[i] < target {
+			l = i + 1
+		} else {
+			return i
+		}
+		if l > r {
+			return -1
+		}
+	}
 }

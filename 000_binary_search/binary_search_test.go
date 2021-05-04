@@ -51,6 +51,7 @@ var data = []TestCase{
 }
 
 var solvers = []Solver{
+	RecursiveSolver{},
 	DirectSolver{},
 }
 
