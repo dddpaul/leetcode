@@ -23,10 +23,7 @@ func (ds DirectSolver) Search(nums []int, target int) int {
 	search = func(l int, r int) int {
 		i = l + (r-l)/2
 		fmt.Printf("i = %d, l = %d, r = %d\n", i, l, r)
-		if nums[i] == target {
-			return i
-		}
-		if l >= r {
+		if l > r {
 			return -1
 		}
 		if nums[i] > target {
