@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -13,12 +14,28 @@ type TestCase struct {
 
 var data = []TestCase{
 	{
+		x:        8,
+		expected: 2,
+	},
+	{
+		x:        7,
+		expected: 2,
+	},
+	{
+		x:        6,
+		expected: 2,
+	},
+	{
+		x:        5,
+		expected: 2,
+	},
+	{
 		x:        4,
 		expected: 2,
 	},
 	{
-		x:        8,
-		expected: 2,
+		x:        3,
+		expected: 1,
 	},
 	{
 		x:        1,
@@ -37,7 +54,7 @@ var solvers = []Solver{
 func TestExamples(t *testing.T) {
 	for _, s := range solvers {
 		for _, d := range data {
-			assert.Equal(t, d.expected, s.MySqrt(d.x))
+			assert.Equal(t, d.expected, s.MySqrt(d.x), fmt.Sprintf("For x = %d", d.x))
 		}
 	}
 }

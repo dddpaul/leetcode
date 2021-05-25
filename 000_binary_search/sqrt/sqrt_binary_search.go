@@ -25,7 +25,7 @@ func (ds DirectSolver) MySqrt(x int) int {
 			return i
 		}
 		if l > r {
-			return i
+			return i - 1
 		}
 	}
 }
