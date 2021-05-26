@@ -11,9 +11,6 @@ type Solver interface {
 type DirectSolver struct{}
 
 func (ds DirectSolver) MySqrt(x int) int {
-	if x == 0 || x == 1 {
-		return x
-	}
 	l, r := 0, x
 	for {
 		i := l + (r-l)/2
