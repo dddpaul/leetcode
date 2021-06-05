@@ -10,6 +10,9 @@ type Solver interface {
 
 type DirectSolver struct{}
 
+/**
+ * Return index of greatest number in rotated array
+ */
 func find_max_index(nums []int) int {
 	if len(nums) < 2 {
 		return -1
