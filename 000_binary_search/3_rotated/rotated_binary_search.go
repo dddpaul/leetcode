@@ -17,10 +17,10 @@ func find_pivot(nums []int) int {
 	l, r := 0, len(nums)-1
 	for {
 		i := l + (r-l)/2
-		if nums[i] > nums[i+1] {
+		if i < len(nums)-1 && nums[i] > nums[i+1] {
 			return i
 		}
-		if nums[0] < nums[i] {
+		if nums[0] > nums[i] {
 			r = i - 1
 		} else {
 			l = i + 1
