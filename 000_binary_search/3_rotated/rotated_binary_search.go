@@ -10,7 +10,7 @@ type Solver interface {
 
 type DirectSolver struct{}
 
-func find_pivot(nums []int) int {
+func find_max_index(nums []int) int {
 	if len(nums) < 2 {
 		return -1
 	}
