@@ -63,13 +63,13 @@ var solvers = []Solver{
 	DirectSolver{},
 }
 
-// func TestExamples(t *testing.T) {
-// 	for _, s := range solvers {
-// 		for _, d := range data {
-// 			assert.Equal(t, d.expected, s.Search(d.nums, d.target))
-// 		}
-// 	}
-// }
+func TestExamples(t *testing.T) {
+	for _, s := range solvers {
+		for _, d := range data {
+			assert.Equal(t, d.expected, s.Search(d.nums, d.target), fmt.Sprintf("For nums = %v, target = %d", d.nums, d.target))
+		}
+	}
+}
 
 func TestFindMaxIndex(t *testing.T) {
 	for _, d := range data {
