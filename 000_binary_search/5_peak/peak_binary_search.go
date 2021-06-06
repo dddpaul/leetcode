@@ -11,5 +11,16 @@ type Solver interface {
 type DirectSolver struct{}
 
 func (ds DirectSolver) FindPeakElement(nums []int) int {
-	return 0
+	l, r := 0, len(nums)
+	for {
+		i := l + (r-l)/2
+		if (i == 0 || nums[i-1] < nums[i]) && (i == len(nums)-1 || nums[i] > nums[i+1]) {
+			return i
+		}
+		if nums[i-1] > nums[i] {
+			r = i
+		} else if nums[i] < nums[i+1] {
+			l = i + 1
+		}
+	}
 }
