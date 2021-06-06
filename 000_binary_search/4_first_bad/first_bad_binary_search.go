@@ -27,5 +27,20 @@ func (ds DirectSolver) isBadVersion(version int) bool {
 }
 
 func (ds DirectSolver) FirstBadVersion(n int) int {
-	return 0
+	isBadVersion := ds.isBadVersion
+	if n <= 1 {
+		return n
+	}
+	l, r := 1, n
+	for {
+		i := l + (r-l)/2
+		if l == r {
+			return i
+		}
+		if isBadVersion(i) {
+			r = i
+		} else {
+			l = i + 1
+		}
+	}
 }
