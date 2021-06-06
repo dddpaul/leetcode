@@ -35,9 +35,15 @@ var data = []TestCase{
 	},
 }
 
+var solvers = []Solver{
+	DirectSolver{},
+	SimplerSolver{},
+}
+
 func TestExamples(t *testing.T) {
-	for _, d := range data {
-		s := DirectSolver{}
-		assert.Equal(t, d.expected, s.FindPeakElement(d.nums), fmt.Sprintf("For nums = %x", d.nums))
+	for _, s := range solvers {
+		for _, d := range data {
+			assert.Equal(t, d.expected, s.FindPeakElement(d.nums), fmt.Sprintf("For nums = %x", d.nums))
+		}
 	}
 }

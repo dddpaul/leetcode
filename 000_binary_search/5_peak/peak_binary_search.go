@@ -24,3 +24,20 @@ func (ds DirectSolver) FindPeakElement(nums []int) int {
 		}
 	}
 }
+
+type SimplerSolver struct{}
+
+func (ss SimplerSolver) FindPeakElement(nums []int) int {
+	l, r := 0, len(nums)-1
+	for {
+		i := (l + r) / 2
+		if i == len(nums)-1 || nums[i] > nums[i+1] {
+			r = i
+		} else {
+			l = i + 1
+		}
+		if l == r {
+			return l
+		}
+	}
+}
