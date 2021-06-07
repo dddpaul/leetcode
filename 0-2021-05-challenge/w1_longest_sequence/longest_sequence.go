@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math"
 )
 
 /**
@@ -18,25 +17,11 @@ type DirectSolver struct{}
 func (ds DirectSolver) LongestConsecutive(nums []int) int {
 	m := make(map[int]int)
 	for _, i := range nums {
-		vPrev, vNext := 0, 0
-		okPrev, okNext := false, false
+		vPrev, okPrev := m[i-1]
+		vNext, okNext := m[i+1]
+		count := vPrev + vNext + 1
 
-		vPrev, okPrev = m[i-1]
-		vNext, okNext = m[i+1]
-		count := int(math.Max(float64(vPrev), float64(vNext)))
-
-		if okPrev {
-			count = count + 1
-		}
-		if okNext {
-			count = count + 1
-		}
-
-		if count > 0 {
-			m[i] = count
-		} else {
-			m[i] = 1
-		}
+		m[i] = count
 		if okPrev {
 			m[i-1] = count
 		}
